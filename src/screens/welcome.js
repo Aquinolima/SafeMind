@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet} from 'react-native';
+import { SafeAreaView, Text, Image, StyleSheet, Dimensions} from 'react-native';
 import colors from '../styles/colors'
 import { Button } from '../components/button'
  
@@ -7,25 +7,22 @@ import welcomeImg from '../assets/welcome.png';
 
 export function Welcome () {
     return(
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Text style={styles.title} > 
-                Resgistre {'\n'}
+                Resgistre{'\n'}
                  seu dia de forma {'\n'}
                  fácil
             </Text>
 
-            <Image source={welcomeImg} style={styles.image}/>
+            <Image source={welcomeImg} style={styles.image} resizeMode="contain"/>
             
             <Text style={styles.subtitle} >
                 Esse é o seu diário pessoal onde você poderá anotar tudo e compartilhar com quem quiser !
             </Text>
             
            <Button title="Avançar"/>
-           
-          
-         
-        
-        </View>
+                           
+        </SafeAreaView>
     )
 }
 
@@ -33,7 +30,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-around'
     },
     title: {
         fontSize: 32,
@@ -50,12 +47,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         color: '#52665A'
     },
-        image:{
-        width: 350,
-        height: 350 
+    image:{
+        height: Dimensions.get("window").width * 0.8
    }
   
-
-   
 })
 
