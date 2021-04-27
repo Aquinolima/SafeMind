@@ -17,12 +17,12 @@ export function Welcome () {
             <Image source={welcomeImg} style={styles.image}/>
             
             <Text style={styles.subtitle} >
-                Esse é o seu diário pessoal onde você poderá anotar tudo e compartilhar com seu analista !
+                Esse é o seu diário pessoal onde você poderá anotar tudo e compartilhar com quem quiser !
             </Text>
             
-           <Button title="Go!"/>
-           <Button title="Voltar"/>
-           <Button title="Gravar"  />
+           <Button title="Avançar"/>
+           
+          
          
         
         </View>
