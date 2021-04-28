@@ -6,8 +6,16 @@ import fonts from '../styles/fonts';
 
  
 import welcomeImg from '../assets/welcome.png';
+import { useNavigation } from '@react-navigation/core';
 
 export function Welcome () {
+    const navigation = useNavigation();
+
+    function handleStart(){
+        navigation.navigate('UserIdentification');
+
+    }
+
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.wrapper}>
@@ -24,7 +32,7 @@ export function Welcome () {
                     Esse é o seu diário pessoal onde você poderá anotar tudo e compartilhar com quem quiser !
                 </Text>
                 
-                <TouchableOpacity style={styles.button} activeOpacity={0.5}>
+                <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={handleStart}>
                     <Text >
                         <Feather                    
                             name="chevron-right" 
