@@ -1,32 +1,51 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { 
     SafeAreaView,
     StyleSheet,
     View,
-    Text
+    Text, 
+    Image,
+    Dimensions
 } from  'react-native';
 
+
+import logo from '../assets/logo.png';
 import{ Button } from '../components/button'
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 export function Confirmation(){
+    const navigation = useNavigation();
+
+    function handleNew(){
+        navigation.navigate('NewRecord');
+    };
+    function handleRecord(){
+        navigation.navigate('ListRecords');
+    };
+    function handleProfile(){
+        navigation.navigate('Profile');
+    };
+
     return (
 
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
-                <Text style={styles.emoji}>
-                    📓 
-                </Text>
+                
+                <Image source={logo} style={styles.image} resizeMode="contain"/>
+
                 <Text style={styles.title}>
-                    Olá! 
+                    Olá, Thiago!
                 </Text>
                 <Text style={styles.subtitle}>
                    Agora vamos começar {'\n'} a fazer suas anotações.
                 </Text>
+                
                 <View style={styles.footer}>
-                    <Button  title={"Avançar"} />
+                    <Button  title={"Avançar"} onPress={handleRecord} />
                 </View>  
+                
             </View>
                     
         </SafeAreaView>
@@ -47,6 +66,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 20
     },
+    image:{
+        height: Dimensions.get("window").width * 0.2
+    },
     title: {
         fontSize:24,
         lineHeight: 32,
@@ -62,10 +84,6 @@ const styles = StyleSheet.create({
         color: colors.heading,
         fontFamily: fonts.text,
         paddingHorizontal: 20
-    },
-    emoji: {
-        fontSize: 44,
-        alignItems:'center'
     },
     footer: {
         marginTop:  40,

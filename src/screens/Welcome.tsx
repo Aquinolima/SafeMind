@@ -1,5 +1,5 @@
-import React from 'react';
-import { SafeAreaView, View, Text, Image, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import React, { useEffect } from 'react';
+import { SafeAreaView, View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, AsyncStorage} from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts'; 
@@ -11,9 +11,23 @@ import { useNavigation } from '@react-navigation/core';
 export function Welcome () {
     const navigation = useNavigation();
 
-    function handleStart(){
-        navigation.navigate('UserIdentification');
+    
 
+useEffect(() => {
+    const checkToken = async () => {
+        const token = await AsyncStorage.getItem('token');
+        if(token){
+             // validar o token
+        } else {
+            navigation.navigate('Welcome');
+        }
+    }
+    checkToken();
+}, []);
+
+  
+    function handleSignUp(){
+        navigation.navigate('UserIdentification');
     }
 
     return(
@@ -31,17 +45,18 @@ export function Welcome () {
                 <Text style={styles.subtitle} >
                     Esse é o seu diário pessoal onde você poderá anotar tudo e compartilhar com quem quiser !
                 </Text>
-                
-                <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={handleStart}>
+
+                <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={handleSignUp}>
                     <Text >
                         <Feather                    
                             name="chevron-right" 
                             style={styles.buttonIcon} 
+                            
                         />
                     </Text>
                 </TouchableOpacity>
-                           
-            </View>
+                
+             </View>
         </SafeAreaView>
     )
 }

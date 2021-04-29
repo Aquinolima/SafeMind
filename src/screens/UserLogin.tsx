@@ -19,7 +19,7 @@ import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import logo from '../assets/logo.png';
 
-export function UserIdentification(){
+export function UserLogin(){
     const[isFocused, setIsFocused] =  useState(false);
     const[isFilled, setIsFilled] =  useState(false);
     const[name, setName] = useState<string>();
@@ -39,12 +39,14 @@ export function UserIdentification(){
 
     function handleSubmit(){
         navigation.navigate('Confirmation');
-
     };
 
-    function handleSignIn(){
-        navigation.navigate('UserLogin');
+    function handleSignUp(){
+        navigation.navigate('UserIdentification');
+    };
 
+    function handleForget(){
+        navigation.navigate('ForgetPass');
     };
 
     return (
@@ -59,7 +61,7 @@ export function UserIdentification(){
                         <View style={styles.form}>
 
                             <View style={styles.header}>
-
+                                
                                 {/* 
                                 <Text style={styles.emoji}>
                                     { isFilled ?  '😃' : '🙂' } 
@@ -68,21 +70,10 @@ export function UserIdentification(){
                                 
                                 <Image source={logo} style={styles.image} resizeMode="contain"/>
                                 <Text style={styles.title}>
-                                    Preencha para cadastrar.
+                                    Insira seu{'\n'} email e senha
                                 </Text>
                             </View>
 
-                            <TextInput 
-                            style={[
-                                styles.input,
-                                (isFocused || isFilled) && { borderColor: colors.blue}
-                            ]}
-                            placeholder="  Digite seu nome "
-                            onBlur={handleInputBlur}
-                            onFocus={handleInputFocus}
-                            onChangeText={handleInputChange}
-                            
-                            />
                             <TextInput 
                             style={[
                                 styles.input,
@@ -106,10 +97,13 @@ export function UserIdentification(){
                             
                             />
                             <View style={styles.footer}>
-                                <Button  title="Cadastrar" onPress={handleSignIn} />
+                                <Button  title="Entrar" onPress={handleSubmit} />
                             </View>
-                            <Text style={styles.infos} onPress={handleSignIn}>
-                                    Já tenho cadastro. Fazer Login.
+                            <Text style={styles.infos} onPress={handleSignUp}>
+                                    Não tenho cadastro.   
+                            </Text>
+                            <Text style={styles.infos} onPress={handleForget}>
+                                    Esqueci minha senha.
                             </Text>
 
                         </View>
@@ -140,14 +134,6 @@ const styles = StyleSheet.create({
     header: {
         alignItems: 'center'
     },
-    infos: {
-        fontSize:15,
-        lineHeight: 24,
-        textAlign: 'center',
-        color: colors.heading,
-        fontFamily: fonts.complement,
-        marginTop: 10
-    },
     title: {
         fontSize:24,
         lineHeight: 32,
@@ -155,7 +141,14 @@ const styles = StyleSheet.create({
         color: colors.heading,
         fontFamily: fonts.heading,
         marginTop: 20
-
+    },
+    infos: {
+        fontSize:15,
+        lineHeight: 24,
+        textAlign: 'center',
+        color: colors.heading,
+        fontFamily: fonts.complement,
+        marginTop: 10
     },
     image:{
         height: Dimensions.get("window").width * 0.2

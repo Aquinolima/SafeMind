@@ -1,5 +1,6 @@
 import React from 'react';
 import AppLoading from 'expo-app-loading';
+import 'react-native-gesture-handler';
 
 import Routes from './src/routes';
 import { 

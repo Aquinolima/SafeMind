@@ -19,7 +19,7 @@ import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import logo from '../assets/logo.png';
 
-export function UserIdentification(){
+export function ForgetPass(){
     const[isFocused, setIsFocused] =  useState(false);
     const[isFilled, setIsFilled] =  useState(false);
     const[name, setName] = useState<string>();
@@ -41,8 +41,7 @@ export function UserIdentification(){
         navigation.navigate('Confirmation');
 
     };
-
-    function handleSignIn(){
+    function handleSignin(){
         navigation.navigate('UserLogin');
 
     };
@@ -59,30 +58,15 @@ export function UserIdentification(){
                         <View style={styles.form}>
 
                             <View style={styles.header}>
-
-                                {/* 
-                                <Text style={styles.emoji}>
-                                    { isFilled ?  '😃' : '🙂' } 
-                                </Text>
-                                */}
-                                
                                 <Image source={logo} style={styles.image} resizeMode="contain"/>
                                 <Text style={styles.title}>
-                                    Preencha para cadastrar.
+                                    Insira o email cadastrado
+                                </Text>
+                                <Text style={styles.subtitle}>
+                                    Sua senha será enviada para seu email. {'\n'} 
                                 </Text>
                             </View>
 
-                            <TextInput 
-                            style={[
-                                styles.input,
-                                (isFocused || isFilled) && { borderColor: colors.blue}
-                            ]}
-                            placeholder="  Digite seu nome "
-                            onBlur={handleInputBlur}
-                            onFocus={handleInputFocus}
-                            onChangeText={handleInputChange}
-                            
-                            />
                             <TextInput 
                             style={[
                                 styles.input,
@@ -92,25 +76,16 @@ export function UserIdentification(){
                             onBlur={handleInputBlur}
                             onFocus={handleInputFocus}
                             onChangeText={handleInputChange}
-                            
                             />
-                            <TextInput 
-                            style={[
-                                styles.input,
-                                (isFocused || isFilled) && { borderColor: colors.blue}
-                            ]}
-                            placeholder="  Digite sua senha "
-                            onBlur={handleInputBlur}
-                            onFocus={handleInputFocus}
-                            onChangeText={handleInputChange}
-                            
-                            />
+
+                                                   
                             <View style={styles.footer}>
-                                <Button  title="Cadastrar" onPress={handleSignIn} />
+                                <Button  title="Enviar" onPress={handleSubmit} />
                             </View>
-                            <Text style={styles.infos} onPress={handleSignIn}>
-                                    Já tenho cadastro. Fazer Login.
+                            <Text style={styles.infos} onPress={handleSignin}>
+                                    Fazer Login 
                             </Text>
+                            
 
                         </View>
                     </View>
@@ -140,14 +115,6 @@ const styles = StyleSheet.create({
     header: {
         alignItems: 'center'
     },
-    infos: {
-        fontSize:15,
-        lineHeight: 24,
-        textAlign: 'center',
-        color: colors.heading,
-        fontFamily: fonts.complement,
-        marginTop: 10
-    },
     title: {
         fontSize:24,
         lineHeight: 32,
@@ -155,7 +122,22 @@ const styles = StyleSheet.create({
         color: colors.heading,
         fontFamily: fonts.heading,
         marginTop: 20
-
+    },
+    subtitle: {
+        fontSize:18,
+        lineHeight: 22,
+        textAlign: 'center',
+        color: colors.heading,
+        fontFamily: fonts.complement,
+        marginTop: 10
+    },
+    infos: {
+        fontSize:15,
+        lineHeight: 24,
+        textAlign: 'center',
+        color: colors.heading,
+        fontFamily: fonts.complement,
+        marginTop: 10
     },
     image:{
         height: Dimensions.get("window").width * 0.2
