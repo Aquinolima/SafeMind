@@ -17,8 +17,8 @@ const AuthRoutes = () => {
             activeTintColor: colors.blue,
             inactiveTintColor: colors.heading,
             style: {
-                paddingVertical: 5,
-                height:75,
+                padding: 5,
+                height:50,
                 
                 
             },
@@ -31,7 +31,7 @@ const AuthRoutes = () => {
                 tabBarIcon: (({ size, color }) => (
                     <MaterialIcons
                         name="list"
-                        size={size * 2}
+                        size={size * 1.7}
                         color={color}
                     />
                 ))
@@ -46,8 +46,9 @@ const AuthRoutes = () => {
                 tabBarIcon: (({ size, color }) => (
                     <MaterialIcons
                         name="add-circle-outline"
-                        size={size * 2}
+                        size={size * 2.5}
                         color={color}
+                        
                     />
                 ))
             }}
@@ -61,7 +62,7 @@ const AuthRoutes = () => {
                 tabBarIcon: (({ size, color }) => (
                     <MaterialIcons
                         name="person"
-                        size={size * 2}
+                        size={size * 1.7}
                         color={color}
                     />
                 ))

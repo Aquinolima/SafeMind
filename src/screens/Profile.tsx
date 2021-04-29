@@ -129,11 +129,9 @@ export function Profile(){
                             onChangeText={handleInputChange}
                             
                             />
-                            <View style={styles.footer}>
-                                <Button  title="Cadastrar" onPress={handleSignIn} />
-                            </View>
-                           
-
+                        <View style={styles.footer}>
+                                <Button  title="Salvar" onPress={handleSignIn} />
+                        </View>
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
@@ -155,7 +153,8 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 54
+        paddingHorizontal: 54,
+        paddingTop:50
     },
     header: {
         paddingHorizontal: 40,
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
         marginTop: 15
     },
     subtitle: {
-        marginBottom: 10,
+        marginBottom: 5,
         fontSize:20,
         lineHeight: 25,
         color: colors.heading,
@@ -181,14 +180,16 @@ const styles = StyleSheet.create({
         borderColor: colors.gray,
         color: colors.heading,
         width: '100%',
-        fontSize: 20,
-        marginTop: 20,
-        padding:  8,
+        fontSize: 15,
+        lineHeight: 10,
+        marginTop: 5,
+        paddingBottom:  5,
         textAlign:'center'
     },
     footer: {
         marginVertical:  20,
         width: '100%',
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        paddingTop: 25
     }
 })
