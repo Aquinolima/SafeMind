@@ -18,6 +18,15 @@ export function Button({ title, ... rest } : ButtonProps){
         </TouchableOpacity>
     )
 }
+export function ButtonRed({ title, ... rest } : ButtonProps){
+    return(
+        <TouchableOpacity style={styles.buttonRed} activeOpacity={0.5} {... rest}>
+        <Text style={styles.buttonText}>
+          {title}
+        </Text>
+        </TouchableOpacity>
+    )
+}
 
 const styles = StyleSheet.create({
     button:{
@@ -29,6 +38,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
        height: 56,
               
+    },
+    buttonRed: {
+        backgroundColor: colors.red,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 16,
+        marginBottom: 15,
+        paddingHorizontal: 15,
+       height: 56,
     },
     buttonText: {
         color: colors.background, 
