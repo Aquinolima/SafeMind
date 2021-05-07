@@ -26,8 +26,8 @@ useEffect(() => {
 }, []);
 
   
-    function handleSignUp(){
-        navigation.navigate('UserIdentification');
+    function handleSignIn(){
+        navigation.navigate('UserLogin');
     }
 
     return(
@@ -46,7 +46,7 @@ useEffect(() => {
                     Esse é o seu diário pessoal onde você poderá anotar tudo e compartilhar com quem quiser !
                 </Text>
 
-                <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={handleSignUp}>
+                <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={handleSignIn}>
                     <Text >
                         <Feather                    
                             name="chevron-right" 

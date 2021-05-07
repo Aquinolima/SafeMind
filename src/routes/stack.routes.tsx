@@ -54,17 +54,17 @@ const AppRoutes: React.FC = () => (
             component={Confirmation}
         />
 
-       <stackRoutes.Screen 
+        <stackRoutes.Screen 
            name="ListRecords"
            component={AuthRoutes}
        />
-       
+        
         <stackRoutes.Screen 
             name="NewRecord"
             component={NewRecord}
         />
-       
-        <stackRoutes.Screen 
+           
+         <stackRoutes.Screen 
             name="Profile"
             component={Profile}
         />

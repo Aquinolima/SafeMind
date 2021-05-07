@@ -17,8 +17,10 @@ const AuthRoutes = () => {
             activeTintColor: colors.blue,
             inactiveTintColor: colors.heading,
             style: {
-                padding: 5,
-                height:50,
+                padding: 15,
+                height:60,
+                backgroundColor: colors.blue_light
+
                 
                 
             },

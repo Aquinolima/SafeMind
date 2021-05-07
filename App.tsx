@@ -1,4 +1,6 @@
 import React from 'react';
+console.disableYellowBox = true;
+
 import AppLoading from 'expo-app-loading';
 import 'react-native-gesture-handler';
 

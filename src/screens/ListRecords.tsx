@@ -27,7 +27,7 @@ export function ListRecords(){
                     Lista de Registros
                     </Text>
                     <Text style={styles.subtitle}>
-                    Selecione o campo para adicionar os detalhes.
+                    Selecione o campo para ver ou editar o registro.
                     </Text>
                 </View>
             </View>
@@ -45,13 +45,12 @@ export function ListRecords(){
 
           
 
-            
-            
-            <View style={styles.titleButtons}>
+         
+          {/*   <View style={styles.titleButtons}>
                     <Button title="Dicas" onPress={handleSignIn} ></Button>
                     <ButtonRed title="Contato de Emergência" onPress={handleSignIn} ></ButtonRed>
             </View>
-            
+             */}
         </SafeAreaView>
     )
 }

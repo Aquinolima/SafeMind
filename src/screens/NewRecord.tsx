@@ -1,6 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { SafeAreaView, View, Text, TextInput, StyleSheet, Image, ScrollView, Button } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, 
+            View, 
+            Text, 
+            TextInput, 
+            StyleSheet, 
+            Image, 
+            ScrollView, 
+            Button, 
+            TouchableOpacity 
+        } from 'react-native';
 
 
 import colors from '../styles/colors';
@@ -9,14 +18,10 @@ import Flag from '../assets/icons/Flag.png';
 import Think from '../assets/icons/Lightbulb.png';
 import Fire from '../assets/icons/Fire.png';
 import Date from '../assets/icons/Date.png';
-import Up from '../assets/icons/Up.png';
-import UpRight from '../assets/icons/UpRight.png';
-import Right from '../assets/icons/Right.png';
-import DownRight from '../assets/icons/DownRight.png';
-import Down from '../assets/icons/Down.png';
-import Smyles from '../assets/smyles.png';
 
 import { Header } from '../components/header';
+import typeIcons from '../utils/typeIcons';
+import AuthRoutes from '../routes/tab.routes';
 
 export function NewRecord(){
     const navigation = useNavigation();
@@ -42,89 +47,92 @@ export function NewRecord(){
             </View>
 
 
-        <ScrollView>
-        <Image source={Smyles} style={styles.reasons}/>
-
-          
-
-            <View style={styles.inputCard}>
-                <View style={styles.inputTitle}>
-                    
-                    <Text style={styles.label}>Descreva as emoções</Text>
-
+            <ScrollView>
+                <View style={styles.reasons} >
+                    {
+                    typeIcons.map(icon => (
+                        <TouchableOpacity>
+                        <Image style={styles.iconReasons} source={icon}/>    
+                        </TouchableOpacity>
+                        ))
+                    }
                 </View>
-                <TextInput 
-                    style={styles.input}
-                    multiline={true}
-                    maxLength={300}
-                    placeholder="Ansioso, Assustado, Raiva, Feliz, Alegre, Calmo, Triste ..."
-                ></TextInput>
-            </View>
-            
-            <View style={styles.inputCard}>
-                <View style={styles.inputTitle}>
-                    <Image source={Date} style={styles.logo}/>
-                    <View>
-                    <Text style={styles.label}>Data e hora</Text>
 
+
+                <View style={styles.inputCard}>
+                    <View style={styles.inputTitle}>
+                        <Text style={styles.label}>Descreva as emoções</Text>
                     </View>
+                    <TextInput 
+                        style={styles.input}
+                        multiline={true}
+                        maxLength={300}
+                        placeholder="Ansioso, Assustado, Raiva, Feliz, Alegre, Calmo, Triste ..."
+                    ></TextInput>
                 </View>
-                <TextInput 
-                    style={styles.input}
-                    multiline={true}
-                    maxLength={300}
-                    placeholder="Qual a data e hora do ocorrido? "
-                ></TextInput>
-            </View>
-
-            <View style={styles.inputCard}>
-                <View style={styles.inputTitle}>
-                    <Image source={Flag} style={styles.logo}/>
-                    <View>
-                    <Text style={styles.label}>Situação</Text>
-
-                    </View>
-                </View>
-                <TextInput 
-                    style={styles.input}
-                    multiline={true}
-                    maxLength={300}
-                    placeholder="Qual situação causou essas emoções? "
-                ></TextInput>
-            </View>
-
-            <View style={styles.inputCard}>
-                <View style={styles.inputTitle}>
-                    <Image source={Think} style={styles.logo}/>
-                    <Text style={styles.label}>Pensamentos</Text>
-                </View>
-                <TextInput 
-                    style={styles.input}
-                    multiline={true}
-                    maxLength={300}
-                    placeholder="Quais foram seus pensamentos no evento?"
-                ></TextInput>
-            </View>
-
-            <View style={styles.inputCard}>
-                <View style={styles.inputTitle}>
-                    <Image source={Fire} style={styles.logo}/>
-                    <Text style={styles.label}>Reação</Text>
-                </View>
-                <TextInput 
-                    style={styles.input}
-                    multiline={true}
-                    maxLength={300}
-                    placeholder="Qual foi sua reação?"
-                ></TextInput>
-            </View>
-
-            <View style={styles.footer}>
-                                <Button  title="Salvar" onPress={handleSignIn} />
+                
+                <View style={styles.inputCard}>
+                    <View style={styles.inputTitle}>
+                        <Image source={Date} style={styles.logo}/>
+                        <View>
+                            <Text style={styles.label}>Data e hora</Text>
                         </View>
+                    </View>
+                    <TextInput 
+                        style={styles.input}
+                        multiline={true}
+                        maxLength={300}
+                        placeholder="Qual a data e hora do ocorrido? "
+                    ></TextInput>
+                </View>
+
+                <View style={styles.inputCard}>
+                    <View style={styles.inputTitle}>
+                        <Image source={Flag} style={styles.logo}/>
+                        <View>
+                            <Text style={styles.label}>Situação</Text>
+                        </View>
+                    </View>
+                    <TextInput 
+                        style={styles.input}
+                        multiline={true}
+                        maxLength={300}
+                        placeholder="Qual situação causou essas emoções? "
+                    ></TextInput>
+                </View>
+
+                <View style={styles.inputCard}>
+                    <View style={styles.inputTitle}>
+                        <Image source={Think} style={styles.logo}/>
+                        <Text style={styles.label}>Pensamentos</Text>
+                    </View>
+                    <TextInput 
+                        style={styles.input}
+                        multiline={true}
+                        maxLength={300}
+                        placeholder="Quais foram seus pensamentos no evento?"
+                    ></TextInput>
+                </View>
+
+                <View style={styles.inputCard}>
+                    <View style={styles.inputTitle}>
+                        <Image source={Fire} style={styles.logo}/>
+                        <Text style={styles.label}>Reação</Text>
+                    </View>
+                    <TextInput 
+                        style={styles.input}
+                        multiline={true}
+                        maxLength={300}
+                        placeholder="Qual foi sua reação?"
+                    ></TextInput>
+                </View>
+
+                <View style={styles.footer}>
+                    <Button  title="Salvar" onPress={handleSignIn} />
+                </View>
 
 
-        </ScrollView>    
+            </ScrollView>    
 
             
         </SafeAreaView>
@@ -204,10 +212,22 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingTop: 25,
     },
-    
     reasons:{
-        width: 'auto',
-        height: 80,
-        marginHorizontal: 15
+        flexDirection: 'row',
+        width: '90%',
+        shadowColor: colors.body_dark,
+        backgroundColor: colors.background,
+        borderRadius: 10,
+        marginHorizontal: 15,
+        padding: 15,
+        marginTop: 10,
+        
+    },
+    iconReasons:{
+        width: 50,
+        height: 50,
+        marginRight:15,
+        marginLeft: -15,
+    
     }
 })

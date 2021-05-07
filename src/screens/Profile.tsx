@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, Text, TextInput, Platform, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, Image, Keyboard, Dimensions } from 'react-native';
 
 
-import{ Button } from '../components/button'
+import{ Button, ButtonRed } from '../components/button';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import logo from '../assets/logo.png';
@@ -131,6 +131,7 @@ export function Profile(){
                             />
                         <View style={styles.footer}>
                                 <Button  title="Salvar" onPress={handleSignIn} />
+                                <ButtonRed  title="Sair" onPress={handleSignIn} />
                         </View>
                         </View>
                     </View>
