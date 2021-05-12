@@ -1,62 +1,70 @@
-import { useState } from 'react';
-import { 
-    StyleSheet, 
-    Image, 
-    TouchableOpacity,
-    TextInput,
-    } from 'react-native';
-import {DatePickerAndroid, TimePickerAndroid } from 'react-native-community/datetimepicker';
+import React, {useState} from 'react';
+import {View, Button, Platform, StyleSheet, Text} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-import iconCalendar from '../../assets/icons/calendario.png';
-import iconHour from '../../assets/icons/hour.png';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
-export default function DateTimeInputAndroid({ type } ){
-        const [datetime, setDateTime] = useState();
+export default function DateTime() {
 
-        async function selectDataorHour() {
-            if(type == 'date'){
-                const {action, year, month, day} = await DatePickerAndroid.open({
-                    mode: 'calendar'
-                });
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
 
-                if(action == DatePickerAndroid.dateSetAction)
-                    setDateTime( `${day} - ${month} - ${year}`);
-            } else {
-                const {action, hour, minuto } = await TimePickerAndroid.open({
-                    is24Hour: true
-                });
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(selectedDate);
+  };
 
-                if ( action != TimePickerAndroid.dismissedAction)
-                setDateTime( `${hour}:${minuto}`);
-            }
-        }
-    
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
 
-    return(
-    <TouchableOpacity onPress={selectDataorHour}>
-        <TextInput style={styles.input} 
-            placeholder={type == 'date' ? 'Clique aqui para definir a data...' : ' Clique aqui para definir a hora...'}
-            editable={false}
-            value={datetime}
-        /> 
-        <Image style={styles.iconTextInput}
-            source={type == 'date' ? iconCalendar : iconHour}
+  const showDatepicker = () => {
+    showMode('date');
+  };
+
+  const showTimepicker = () => {
+    showMode('time');
+  };
+  
+
+  return (
+    <View>
+      <View style={styles.dateTime}>
+        <Button style={styles.inputDate} onPress={showDatepicker} title="DATA" />
+      </View>
+      <View>
+        <Button style={styles.inputTime} onPress={showTimepicker} title="HORA" />
+      </View>
+      <View>
+          <Text >
+            
+          </Text>
+          
+      </View>
+      {show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
         />
-    </TouchableOpacity>
-)
-}
-const styles = StyleSheet.create({
-    input: {
-        fontSize: 18,
-        padding: 10,
-        width: '95%',
-        marginHorizontal: 10
-    },
-    iconTextInput: {
-        position: 'absolute',
-        left: '95%',
-        top: 50
-    }
-    
-})
+      )}
+    </View>
+  );
+};
 
+const styles = StyleSheet.create({
+    dateTime: {
+       
+        justifyContent: 'center',
+        paddingVertical:10
+    },
+   
+
+})

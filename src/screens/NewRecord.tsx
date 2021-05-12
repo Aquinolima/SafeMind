@@ -11,18 +11,18 @@ import { SafeAreaView,
             TouchableOpacity 
         } from 'react-native';
 
-
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import Flag from '../assets/icons/Flag.png';
 import Think from '../assets/icons/Lightbulb.png';
 import Fire from '../assets/icons/Fire.png';
-import Date from '../assets/icons/Date.png';
+import Date from '../assets/icons/calendario.png';
 
 import { Header } from '../components/header';
 import typeIcons from '../utils/typeIcons';
 import AuthRoutes from '../routes/tab.routes';
-import DateTimeInputAndroid from '../components/DateTimeInput/android';
+import DateTime from '../components/DateTimeInput/android';
+
 
 export function NewRecord(){
     const navigation = useNavigation();
@@ -74,18 +74,23 @@ export function NewRecord(){
                 
                 <View style={styles.inputCard}>
                     <View style={styles.inputTitle}>
-                        <Image source={Date} style={styles.logo}/>
+                        <Image source={Date} style={styles.logoCalendario}/>
                         <View>
-                            <Text style={styles.label}>Data e hora</Text>
+                            <Text style={styles.label}>Data </Text>
                         </View>
                     </View>
-                    <DateTimeInputAndroid type={'date'}/>
-                    <TextInput 
+                  
+                        <Text style={styles.inputText}>Qual a data do ocorrido?</Text>
+                        
+                        <TextInput 
                         style={styles.input}
                         multiline={true}
                         maxLength={300}
-                        placeholder="Qual a data e hora do ocorrido? "
-                    ></TextInput>
+                        placeholder="DD - MM - YYYY "
+                        ></TextInput>
+
+                      
+
                 </View>
 
                 <View style={styles.inputCard}>
@@ -199,6 +204,14 @@ const styles = StyleSheet.create({
         fontSize: 15,
         padding: 10
     },
+    inputText: {
+        flexDirection: 'row',
+        fontWeight: 'bold',
+        fontFamily: fonts.complement,
+        fontSize: 15,
+        padding: 10,
+        color: colors.heading
+    },
     logo: {
         marginRight: 10
     },
@@ -231,5 +244,10 @@ const styles = StyleSheet.create({
         marginRight:15,
         marginLeft: -15,
     
+    },
+    logoCalendario:{
+        width: 40,
+        height:40,
+        marginRight: 10
     }
 })
