@@ -22,6 +22,7 @@ import Date from '../assets/icons/Date.png';
 import { Header } from '../components/header';
 import typeIcons from '../utils/typeIcons';
 import AuthRoutes from '../routes/tab.routes';
+import DateTimeInputAndroid from '../components/DateTimeInput/android';
 
 export function NewRecord(){
     const navigation = useNavigation();
@@ -78,6 +79,7 @@ export function NewRecord(){
                             <Text style={styles.label}>Data e hora</Text>
                         </View>
                     </View>
+                    <DateTimeInputAndroid type={'date'}/>
                     <TextInput 
                         style={styles.input}
                         multiline={true}
