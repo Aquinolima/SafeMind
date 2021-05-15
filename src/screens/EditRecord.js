@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { SafeAreaView, 
             View, 
             Text, 
@@ -7,10 +7,13 @@ import { SafeAreaView,
             StyleSheet, 
             Image, 
             ScrollView, 
-          
+         
             TouchableOpacity,
-            Platform 
+            Platform, 
+            Alert
         } from 'react-native';
+
+        import { Button, ButtonRed } from '../components/button';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -22,15 +25,45 @@ import Date from '../assets/icons/calendario.png';
 import { Header } from '../components/header';
 import typeIcons from '../utils/typeIcons';
 import AuthRoutes from '../routes/tab.routes';
-import { Button, ButtonRed } from '../components/button';
+import api from '../config/api';
 
 
 
-export function NewRecord(){
+
+export function EditRecord({route}){
+
+    const [registro, setRegistro] = useState('');
+
+const getRegistro = async () => {
+    try {
+        const {registroId} = route.params;
+        const response = await api.get('/mostrar/' + registroId);
+        setRegistro(response.data.registro);
+    } catch (error) {
+        if (error) {
+            Alert.alert("", error.response.data.message);
+            navigation.navigate('ListRecords');
+        } else {
+            Alert.alert("", "Registro não encontrado, tente novamente!");
+            navigation.navigate('ListRecords');
+        }
+    }
+}
+
+    useFocusEffect(
+        useCallback(() => {
+            getRegistro();
+        },[])
+    );
+   
+
+    
+
+
     const navigation = useNavigation();
 
     function handleSignIn(){
-        navigation.navigate('UserLogin');
+        navigation.navigate('ListRecords');
         };
 
 
@@ -43,13 +76,11 @@ export function NewRecord(){
             <View style={styles.header}>
                 
                 <Text style={styles.name}>
-                  Olá, Thiago!
+                  Registro {registro.id} - {registro.sentimento}
                 </Text>
-                <Text style={styles.title}>
-                   Como está se sentindo?
-                </Text>
+                
                 <Text style={styles.subtitle}>
-                   Selecione o campo para adicionar os detalhes.
+                   Selecione o campo para editar.
                 </Text>
             </View>
 
@@ -68,13 +99,13 @@ export function NewRecord(){
 
                 <View style={styles.inputCard}>
                     <View style={styles.inputTitle}>
-                        <Text style={styles.label}>Descreva as emoções</Text>
+                        <Text style={styles.label}>Emoções</Text>
                     </View>
                     <TextInput 
                         style={styles.input}
                         multiline={true}
                         maxLength={300}
-                        placeholder="Ansioso, Assustado, Raiva, Feliz, Alegre, Calmo, Triste ..."
+                        placeholder={registro.emocoes}
                     ></TextInput>
                 </View>
                 
@@ -82,18 +113,17 @@ export function NewRecord(){
                     <View style={styles.inputTitle}>
                         <Image source={Date} style={styles.logoCalendario}/>
                         <View>
-                            <Text style={styles.label}>Data </Text>
+                            <Text style={styles.label}>Data do ocorrido</Text>
                         </View>
                     </View>
                   
-                        <Text style={styles.inputText}>Qual a data do ocorrido?</Text>
-                        
+                                               
                         <TextInput 
                         style={styles.input}
                         keyboardType = 'numeric'
                         multiline={true}
                         maxLength={300}
-                        placeholder="DD - MM - YYYY "
+                        placeholder={registro.data}
                         ></TextInput>
 
                       
@@ -111,7 +141,7 @@ export function NewRecord(){
                         style={styles.input}
                         multiline={true}
                         maxLength={300}
-                        placeholder="Qual situação causou essas emoções? "
+                        placeholder={registro.situacao}
                     ></TextInput>
                 </View>
 
@@ -124,7 +154,7 @@ export function NewRecord(){
                         style={styles.input}
                         multiline={true}
                         maxLength={300}
-                        placeholder="Quais foram seus pensamentos no evento?"
+                        placeholder={registro.pensamentos}
                     ></TextInput>
                 </View>
 
@@ -137,12 +167,13 @@ export function NewRecord(){
                         style={styles.input}
                         multiline={true}
                         maxLength={300}
-                        placeholder="Qual foi sua reação?"
+                        placeholder={registro.reacao}
                     ></TextInput>
                 </View>
 
-                <View style={styles.footer}>
-                    <Button  title="Salvar" onPress={handleSignIn} />
+                <View style={styles.footer} >
+                    <Button title="Salvar" onPress={handleSignIn} />
+                    <ButtonRed title="Apagar" />
                 </View>
 
 

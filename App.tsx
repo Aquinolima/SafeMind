@@ -1,5 +1,8 @@
 import React from 'react';
-console.disableYellowBox = true;
+import {LogBox} from 'react-native';
+
+
+LogBox.ignoreAllLogs()
 
 import AppLoading from 'expo-app-loading';
 import 'react-native-gesture-handler';

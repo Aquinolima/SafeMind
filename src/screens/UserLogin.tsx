@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { 
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import React, { useCallback, useState } from 'react';
+import {
     SafeAreaView,
     StyleSheet,
     View,
@@ -11,99 +11,134 @@ import {
     Platform,
     Keyboard,
     Image,
-    Dimensions
-} from  'react-native';
+    Dimensions,
+    Alert,
+    FlatList
+} from 'react-native';
+import api from '../config/api';
 
-import{ Button } from '../components/button'
+import { Button } from '../components/button'
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import logo from '../assets/logo.png';
 
-export function UserLogin(){
-    const[isFocused, setIsFocused] =  useState(false);
-    const[isFilled, setIsFilled] =  useState(false);
-    const[name, setName] = useState<string>();
+export function UserLogin() {
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [login, setLogin] = useState('');
+    const [loginE, setLoginE] = useState('');
+    const [loginP, setLoginP] = useState('');
+
+
+
+
+    //Envio do formulário de Login
+    console.log(email);
+    console.log(password);
+
+    async function getLogin(){
+        let response = await fetch('http://192.168.0.12:3000/mostrarUser', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+              })
+        });
+        let json=await response.json();
+        console.log(json);
+        if(json === 'error'){
+            Alert.alert('Erro: Login ou senha inválidos!')
+        }
+        }
+        
+    const [isFocused, setIsFocused] = useState(false);
+    const [isFilled, setIsFilled] = useState(false);
+    const [name, setName] = useState<string>('');
     const navigation = useNavigation();
 
     function handleInputBlur() {
         setIsFocused(false);
         setIsFilled(!!name);
     };
-    function handleInputFocus(){
+    function handleInputFocus() {
         setIsFocused(true);
     };
-    function handleInputChange( value: string){
-        setIsFilled(!!value);
-        setName(value);
-    };
 
-    function handleSubmit(){
-        navigation.navigate('Confirmation');
-    };
-
-    function handleSignUp(){
+    function handleSignUp() {
         navigation.navigate('UserIdentification');
     };
 
-    function handleForget(){
+    function handleForget() {
         navigation.navigate('ForgetPass');
     };
 
     return (
 
         <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView 
+            <KeyboardAvoidingView
                 style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.content}>
+
                         <View style={styles.form}>
 
                             <View style={styles.header}>
-                                
+
                                 {/* 
                                 <Text style={styles.emoji}>
                                     { isFilled ?  '😃' : '🙂' } 
                                 </Text>
                                 */}
-                                
-                                <Image source={logo} style={styles.image} resizeMode="contain"/>
+
+                                <Image source={logo} style={styles.image} resizeMode="contain" />
                                 <Text style={styles.title}>
                                     Insira seu{'\n'} email e senha
                                 </Text>
+                                <Text>
+                                    {email} - {password}
+
+                                </Text>
                             </View>
 
-                            <TextInput 
-                            style={[
-                                styles.input,
-                                (isFocused || isFilled) && { borderColor: colors.blue}
-                            ]}
-                            placeholder="  Digite seu email "
-                            onBlur={handleInputBlur}
-                            onFocus={handleInputFocus}
-                            onChangeText={handleInputChange}
-                            
+                            <TextInput
+                                style={[
+                                    styles.input,
+                                    (isFocused || isFilled) && { borderColor: colors.blue }
+                                ]}
+                                placeholder="  Digite seu email "
+                                onBlur={handleInputBlur}
+                                onFocus={handleInputFocus}
+                                onChangeText={text => setEmail(text)}
+
                             />
-                            <TextInput 
-                            style={[
-                                styles.input,
-                                (isFocused || isFilled) && { borderColor: colors.blue}
-                            ]}
-                            placeholder="  Digite sua senha "
-                            onBlur={handleInputBlur}
-                            onFocus={handleInputFocus}
-                            onChangeText={handleInputChange}
-                            
+                            <TextInput
+                                style={[
+                                    styles.input,
+                                    (isFocused || isFilled) && { borderColor: colors.blue }
+                                ]}
+                                placeholder="  Digite sua senha "
+                                secureTextEntry={true}
+                                onBlur={handleInputBlur}
+                                onFocus={handleInputFocus}
+                                onChangeText={text => setPassword(text)}
+
                             />
+
                             <View style={styles.footer}>
-                                <Button  title="Entrar" onPress={handleSubmit} />
+                                <Button title="Entrar" onPress={() => getLogin()} />
                             </View>
+
                             <Text style={styles.infos} onPress={handleSignUp}>
-                                    Não tenho cadastro.   
+                                Não tenho cadastro.
                             </Text>
                             <Text style={styles.infos} onPress={handleForget}>
-                                    Esqueci minha senha.
+                                Esqueci minha senha.
                             </Text>
 
                         </View>
@@ -112,7 +147,7 @@ export function UserLogin(){
             </KeyboardAvoidingView>
         </SafeAreaView>
     )
-}
+ };
 
 const styles = StyleSheet.create({
     container: {
@@ -126,7 +161,7 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     form: {
-        flex:1,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 54
@@ -135,7 +170,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title: {
-        fontSize:24,
+        fontSize: 24,
         lineHeight: 32,
         textAlign: 'center',
         color: colors.heading,
@@ -143,14 +178,14 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     infos: {
-        fontSize:15,
+        fontSize: 15,
         lineHeight: 24,
         textAlign: 'center',
         color: colors.heading,
         fontFamily: fonts.complement,
         marginTop: 10
     },
-    image:{
+    image: {
         height: Dimensions.get("window").width * 0.2
     },
     emoji: {
@@ -163,12 +198,12 @@ const styles = StyleSheet.create({
         width: '100%',
         fontSize: 18,
         marginTop: 50,
-        padding:  10,
-        textAlign:'center'
+        padding: 10,
+        textAlign: 'center'
     },
     footer: {
-        marginTop:  40,
+        marginTop: 40,
         width: '100%',
         paddingHorizontal: 20
     }
-})
+});

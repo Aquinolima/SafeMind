@@ -8,6 +8,8 @@ import { UserIdentification } from '../screens/UserIdentification';
 import { Confirmation } from '../screens/Confirmation';
 import { ForgetPass } from '../screens/ForgetPass';
 import { NewRecord } from '../screens/NewRecord';
+import { Record } from '../screens/Record';
+import { EditRecord } from '../screens/EditRecord';
 import { Profile } from '../screens/Profile';
 
 
@@ -59,6 +61,16 @@ const AppRoutes: React.FC = () => (
            component={AuthRoutes}
        />
         
+        <stackRoutes.Screen 
+            name="Record"
+            component={Record}
+        />
+
+        <stackRoutes.Screen 
+            name="EditRecord"
+            component={EditRecord}
+        />
+
         <stackRoutes.Screen 
             name="NewRecord"
             component={NewRecord}
