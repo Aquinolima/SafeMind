@@ -8,7 +8,8 @@ import { SafeAreaView,
             Image, 
             ScrollView, 
             Button, 
-            TouchableOpacity 
+            TouchableOpacity,
+            Platform 
         } from 'react-native';
 
 import colors from '../styles/colors';
@@ -21,7 +22,7 @@ import Date from '../assets/icons/calendario.png';
 import { Header } from '../components/header';
 import typeIcons from '../utils/typeIcons';
 import AuthRoutes from '../routes/tab.routes';
-import DateTime from '../components/DateTimeInput/android';
+
 
 
 export function NewRecord(){
@@ -29,8 +30,12 @@ export function NewRecord(){
 
     function handleSignIn(){
         navigation.navigate('UserLogin');
+        };
 
-    };
+
+        
+
+        
     return(
         <SafeAreaView style={styles.container}>
             <Header/>
@@ -84,6 +89,7 @@ export function NewRecord(){
                         
                         <TextInput 
                         style={styles.input}
+                        keyboardType = 'numeric'
                         multiline={true}
                         maxLength={300}
                         placeholder="DD - MM - YYYY "
