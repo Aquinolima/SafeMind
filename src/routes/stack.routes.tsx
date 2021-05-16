@@ -6,6 +6,7 @@ import { Welcome } from '../screens/Welcome';
 import { UserLogin } from '../screens/UserLogin';
 import { UserIdentification } from '../screens/UserIdentification';
 import { Confirmation } from '../screens/Confirmation';
+import { ConfirmationReg } from '../screens/ConfirmationReg';
 import { ForgetPass } from '../screens/ForgetPass';
 import { NewRecord } from '../screens/NewRecord';
 import { Record } from '../screens/Record';
@@ -74,6 +75,11 @@ const AppRoutes: React.FC = () => (
         <stackRoutes.Screen 
             name="NewRecord"
             component={NewRecord}
+        />
+
+<stackRoutes.Screen 
+            name="ConfirmationReg"
+            component={ConfirmationReg}
         />
            
          <stackRoutes.Screen 

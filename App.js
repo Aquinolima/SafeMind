@@ -1,5 +1,12 @@
 import React from 'react';
 import {LogBox} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+async function teste() {
+  let resData=await AsyncStorage.getItem('userData');
+            console.log(JSON.parse(resData));
+}
+teste();
 
 
 LogBox.ignoreAllLogs()

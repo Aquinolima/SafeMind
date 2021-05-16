@@ -21,21 +21,14 @@ import { Button } from '../components/button'
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import logo from '../assets/logo.png';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function UserLogin() {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [login, setLogin] = useState('');
-    const [loginE, setLoginE] = useState('');
-    const [loginP, setLoginP] = useState('');
-
-
 
 
     //Envio do formulário de Login
-    console.log(email);
-    console.log(password);
-
     async function getLogin(){
         let response = await fetch('http://192.168.0.12:3000/mostrarUser', {
             method: 'POST',
@@ -52,6 +45,11 @@ export function UserLogin() {
         console.log(json);
         if(json === 'error'){
             Alert.alert('Erro: Login ou senha inválidos!')
+            await AsyncStorage.clear();
+        }else{
+            let userData= await AsyncStorage.setItem('userData', JSON.stringify(json));
+            let resData=await AsyncStorage.getItem('userData');
+            navigation.navigate('Confirmation');
         }
         }
         
@@ -100,10 +98,7 @@ export function UserLogin() {
                                 <Text style={styles.title}>
                                     Insira seu{'\n'} email e senha
                                 </Text>
-                                <Text>
-                                    {email} - {password}
-
-                                </Text>
+                                
                             </View>
 
                             <TextInput

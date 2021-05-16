@@ -1,5 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import { useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { 
     SafeAreaView,
     StyleSheet,
@@ -15,7 +16,7 @@ import{ Button } from '../components/button'
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
-export function Confirmation(){
+export function ConfirmationReg(){
     const navigation = useNavigation();
 
     function handleNew(){
@@ -28,6 +29,19 @@ export function Confirmation(){
         navigation.navigate('Profile');
     };
 
+
+    const [user,setUser]=useState('');
+
+    useEffect(()=>{
+        async function getUser() {
+            let response = await AsyncStorage.getItem('userData');
+            let json=JSON.parse(response);
+            setUser(json.name);
+        }
+        getUser();
+    }, []);
+    
+
     return (
 
         <SafeAreaView style={styles.container}>
@@ -36,10 +50,10 @@ export function Confirmation(){
                 <Image source={logo} style={styles.image} resizeMode="contain"/>
 
                 <Text style={styles.title}>
-                    Olá, Thiago!
+                    Parabéns, {user}!
                 </Text>
                 <Text style={styles.subtitle}>
-                   Agora vamos começar {'\n'} a fazer suas anotações.
+                   Seu registro foi gravado, {'\n'} vamos para mais anotações.
                 </Text>
                 
                 <View style={styles.footer}>

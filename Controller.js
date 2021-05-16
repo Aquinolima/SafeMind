@@ -21,6 +21,7 @@ app.use((req, res, next) => {
     next();
 });
 
+
 //LOGIN
 app.post('/createUser', async (req, res) => {
     const create = await user.create(
@@ -57,37 +58,76 @@ app.post('/createUser', async (req, res) => {
 
 app.post('/mostrarUser', async (req, res) => {
     let response = await user.findOne({
-        where:{ email: req.body.email, password: req.body.password}
+        where: {
+            email: req.body.email,
+            password: req.body.password
+        }
     });
     console.log(response);
-    if(response === null){
+    if (response === null) {
         res.send(JSON.stringify('error'));
     } else {
         res.send(response);
     }
+});
+
+app.get('/mostrarRegUser', async (req, res) => {
+    let response = await user.findAll({
+        where: {
+            email: req.body.email,
+            password: req.body.password
+        }, order: [
+            ['id', 'DESC']
+        ]
+
     });
+    console.log(response);
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+});
 
-
-
-   /*  app.post('/mostrarUser', async (req, res) => {
-       await user.findOne({
-            where: {
-                email: req.body.email,
-                password: req.body.password
-            }
-        }).then(logUser => {
-            res.json({
-                error: false,
-                logUser
-            })
-        }).catch(function (error) {
-            return res.status(400).json({
-                error: true,
-                message: "ERRO: Erro no Login!"
-            })
-        });
+/* app.get('/listReg', async (req, res) => {
+    let response = await user.findAll({
+        where: {
+            userId: req.body.userId
+        },
+        order: [
+            ['id', 'DESC']
+        ]
     });
-     */
+    console.log(response);
+    if (response === null) {
+        res.send(JSON.stringify('error'));
+    } else {
+        res.send(response);
+    }
+}); */
+
+
+
+
+/*  app.post('/mostrarUser', async (req, res) => {
+    await user.findOne({
+         where: {
+             email: req.body.email,
+             password: req.body.password
+         }
+     }).then(logUser => {
+         res.json({
+             error: false,
+             logUser
+         })
+     }).catch(function (error) {
+         return res.status(400).json({
+             error: true,
+             message: "ERRO: Erro no Login!"
+         })
+     });
+ });
+  */
 
 
 
@@ -149,6 +189,24 @@ app.post('/createUser', async (req, res) => {
 });
 
 app.post('/createRegistro', async (req, res) => {
+    let userId='';
+    await registro.create({
+        userId: req.body.userId,
+        sentimento: req.body.sentimento,
+        emocoes: req.body.emocoes,
+        situacao: req.body.situacao,
+        pensamentos: req.body.pensamentos,
+        reacao: req.body.reacao,
+        data: req.body.data
+    }).then(()=>{
+        userId=response.id;
+        
+    });
+
+    
+});
+
+/* app.post('/createRegistro', async (req, res) => {
     const create = await registro.create(
         req.body
     ).then(function () {
@@ -162,7 +220,7 @@ app.post('/createRegistro', async (req, res) => {
             message: "Erro: Não foi possivel cadastrar o registro!"
         })
     })
-});
+}); */
 
 // LISTAR OS REGISTROS 
 
@@ -177,6 +235,22 @@ app.get('/', function (req, res) {
         });
     });
 });
+
+/* app.get('/', function (req, res) {
+    registro.findAll({
+        where: {
+            userId: req.body.userId
+        },
+        order: [
+            ['id', 'DESC']
+        ]
+    }).then(function (registros) {
+        res.json({
+            registros
+        });
+    });
+});
+ */
 
 // MOSTRAR O REGISTRO SELECIONADO 
 app.get('/mostrar/:id', async (req, res) => {

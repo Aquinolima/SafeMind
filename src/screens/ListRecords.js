@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, View, Text, StyleSheet, ScrollView, Alert, FlatList, TouchableOpacity } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import api from '../config/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
@@ -12,6 +13,18 @@ import { Header } from '../components/header'
 
 export function ListRecords() {
     const navigation = useNavigation();
+
+    const [user,setUser]=useState('');
+
+    useEffect(()=>{
+        async function getUser() {
+            let response = await AsyncStorage.getItem('userData');
+            let json=JSON.parse(response);
+            setUser(json.id);
+        }
+        getUser();
+    }, []);
+
 
     function handleSignIn() {
         navigation.navigate('UserLogin');
@@ -36,6 +49,9 @@ export function ListRecords() {
         }, [])
     );
 
+
+  
+
     return (
         <SafeAreaView style={styles.container}>
             <Header />
@@ -43,7 +59,7 @@ export function ListRecords() {
             <View style={styles.header}>
                 <View>
                     <Text style={styles.title}>
-                        Lista de Registros
+                        Lista de Registros!
                     </Text>
                     <Text style={styles.subtitle}>
                         Selecione o campo para ver ou editar o registro.
