@@ -1,12 +1,12 @@
 import React from 'react';
-import {  createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
 
 import { Welcome } from '../screens/Welcome';
 import { UserLogin } from '../screens/UserLogin';
 import { UserIdentification } from '../screens/UserIdentification';
 import { Confirmation } from '../screens/Confirmation';
-import { ConfirmationReg } from '../screens/ConfirmationReg';
+
 import { ForgetPass } from '../screens/ForgetPass';
 import { NewRecord } from '../screens/NewRecord';
 import { Record } from '../screens/Record';
@@ -32,62 +32,57 @@ const AppRoutes: React.FC = () => (
             },
         }}
     >
-        <stackRoutes.Screen 
+        <stackRoutes.Screen
             name="Welcome"
             component={Welcome}
         />
-       
-        <stackRoutes.Screen 
+
+        <stackRoutes.Screen
             name="UserLogin"
             component={UserLogin}
         />
 
-        <stackRoutes.Screen 
+        <stackRoutes.Screen
             name="ForgetPass"
             component={ForgetPass}
         />
 
-        <stackRoutes.Screen 
+        <stackRoutes.Screen
             name="UserIdentification"
             component={UserIdentification}
         />
 
-        <stackRoutes.Screen 
+        <stackRoutes.Screen
             name="Confirmation"
             component={Confirmation}
         />
 
-        <stackRoutes.Screen 
-           name="ListRecords"
-           component={AuthRoutes}
-       />
-        
-        <stackRoutes.Screen 
+        <stackRoutes.Screen
+            name="ListRecords"
+            component={AuthRoutes}
+        />
+
+        <stackRoutes.Screen
             name="Record"
             component={Record}
         />
 
-        <stackRoutes.Screen 
+        <stackRoutes.Screen
             name="EditRecord"
             component={EditRecord}
         />
 
-        <stackRoutes.Screen 
+        <stackRoutes.Screen
             name="NewRecord"
             component={NewRecord}
         />
-
-<stackRoutes.Screen 
-            name="ConfirmationReg"
-            component={ConfirmationReg}
-        />
-           
-         <stackRoutes.Screen 
+       
+        <stackRoutes.Screen
             name="Profile"
             component={Profile}
         />
 
     </stackRoutes.Navigator>
-) 
+)
 
 export default AppRoutes;

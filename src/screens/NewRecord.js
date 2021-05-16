@@ -208,8 +208,7 @@ export function NewRecord() {
                 <View style={styles.footer}>
                     <Button title="Salvar" 
                     onPress={
-                        ()=>sendForm() && navigation.navigate('ConfirmationReg')
-                    } 
+                        ()=>sendForm()} 
                     />
                 </View>
 
