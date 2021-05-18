@@ -20,7 +20,7 @@ export function ListRecords() {
         async function getUser() {
             let response = await AsyncStorage.getItem('userData');
             let json=JSON.parse(response);
-            setUser(json.id);
+            setUser(json.name);
         }
         getUser();
     }, []);
@@ -37,6 +37,7 @@ export function ListRecords() {
         try {
             const response = await api.get('/');
             setRegistros(response.data.registros);
+            
 
         } catch (error) {
             Alert.alert("", "Erro: Nenhum registro encontrado, tente mais tarde!")
@@ -59,7 +60,7 @@ export function ListRecords() {
             <View style={styles.header}>
                 <View>
                     <Text style={styles.title}>
-                        Lista de Registros!
+                        Lista de Registros! {user}
                     </Text>
                     <Text style={styles.subtitle}>
                         Selecione o campo para ver ou editar o registro.

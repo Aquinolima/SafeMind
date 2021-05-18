@@ -1,12 +1,23 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { SafeAreaView, View, Text, TextInput, Platform, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, Image, Keyboard, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, 
+        SafeAreaView, 
+        View, 
+        Text, 
+        TextInput, 
+        Platform, 
+        StyleSheet, 
+        KeyboardAvoidingView, 
+        TouchableWithoutFeedback, 
+        Keyboard, 
+    } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import{ Button, ButtonRed } from '../components/button';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
-import logo from '../assets/logo.png';
+
 
 import { Header } from '../components/header';
 
@@ -14,8 +25,8 @@ import { Header } from '../components/header';
 export function Profile(){
     const[isFocused, setIsFocused] =  useState(false);
     const[isFilled, setIsFilled] =  useState(false);
-    const[name, setName] = useState<string>();
-    const navigation = useNavigation();
+    const[name, setName] = useState('');
+    const navigation = useNavigation('');
 
     function handleInputBlur() {
         setIsFocused(false);
@@ -24,7 +35,7 @@ export function Profile(){
     function handleInputFocus(){
         setIsFocused(true);
     };
-    function handleInputChange( value: string){
+    function handleInputChange( value ){
         setIsFilled(!!value);
         setName(value);
     };
@@ -39,13 +50,33 @@ export function Profile(){
 
     };
 
+    const [user,setUser]=useState('');
+    const [nome,setNome]=useState('');
+    const [tel,setTel]=useState('');
+    const [email,setEmail]=useState('');
+    const [pass,setPass]=useState('');
+
+    useEffect(()=>{
+        async function getUser() {
+            let response = await AsyncStorage.getItem('userData');
+            let json=JSON.parse(response);
+            setUser(json.id);
+            setNome(json.name);
+            setTel(json.tel);
+            setEmail(json.email);
+            setPass(json.password);
+        }
+        getUser();
+    }, []);
+    
+
     return(
         <SafeAreaView style={styles.container}>
             <Header/>
             <View style={styles.header}>
                 
                 <Text style={styles.title}>
-                   Configurações
+                   Configurações 
                 </Text>
                 <Text style={styles.subtitle}>
                    Selecione o campo para adicionar ou editar.
@@ -55,6 +86,7 @@ export function Profile(){
                 style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
+                  <ScrollView>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.content}>
                         
@@ -66,10 +98,12 @@ export function Profile(){
                                 styles.input,
                                 (isFocused || isFilled) && { borderColor: colors.blue}
                             ]}
-                            placeholder="  Nome "
+                            value= {nome}
+                            placeholder= {nome}
                             onBlur={handleInputBlur}
                             onFocus={handleInputFocus}
-                            onChangeText={handleInputChange}
+                            onChangeText={text => setNome(text)}
+                            
                             
                             />
                             <TextInput 
@@ -77,10 +111,11 @@ export function Profile(){
                                 styles.input,
                                 (isFocused || isFilled) && { borderColor: colors.blue}
                             ]}
-                            placeholder="  Telefone "
+                            value= {tel}
+                            placeholder= {tel}
                             onBlur={handleInputBlur}
                             onFocus={handleInputFocus}
-                            onChangeText={handleInputChange}
+                            onChangeText={text => setTel(text)}
                             
                             />
 
@@ -90,10 +125,11 @@ export function Profile(){
                                 styles.input,
                                 (isFocused || isFilled) && { borderColor: colors.blue}
                             ]}
-                            placeholder="  Email"
+                            value= {email}
+                            placeholder= {email}
                             onBlur={handleInputBlur}
                             onFocus={handleInputFocus}
-                            onChangeText={handleInputChange}
+                            onChangeText={text => setEmail(text)}
                             
                             />
                             <TextInput 
@@ -101,13 +137,15 @@ export function Profile(){
                                 styles.input,
                                 (isFocused || isFilled) && { borderColor: colors.blue}
                             ]}
-                            placeholder="  Senha "
+                            value= {pass}
+                            secureTextEntry={true}
+                            placeholder= {pass}
                             onBlur={handleInputBlur}
                             onFocus={handleInputFocus}
-                            onChangeText={handleInputChange}
+                            onChangeText={text => setPass(text)}
                             
                             />
-                            <TextInput 
+                           {/*  <TextInput 
                             style={[
                                 styles.input,
                                 (isFocused || isFilled) && { borderColor: colors.blue}
@@ -128,7 +166,7 @@ export function Profile(){
                             onFocus={handleInputFocus}
                             onChangeText={handleInputChange}
                             
-                            />
+                            /> */}
                         <View style={styles.footer}>
                                 <Button  title="Salvar" onPress={handleSignIn} />
                                 <ButtonRed  title="Sair" onPress={handleSignIn} />
@@ -136,6 +174,7 @@ export function Profile(){
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
+                </ScrollView>
             </KeyboardAvoidingView>
             
         </SafeAreaView>

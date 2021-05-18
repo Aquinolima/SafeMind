@@ -226,6 +226,7 @@ app.post('/createRegistro', async (req, res) => {
 
 app.get('/', function (req, res) {
     registro.findAll({
+       
         order: [
             ['id', 'DESC']
         ]

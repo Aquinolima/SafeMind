@@ -95,9 +95,7 @@ export function NewRecord() {
                 Selecione o campo para adicionar os detalhes.
                 </Text>
                 
-                <Text >
-                   {humor} - {emocoes} - {situacao} - {pensamento} - {reacao} - {data} - {user}
-                </Text>
+                
             </View>
 
 

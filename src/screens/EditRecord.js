@@ -67,8 +67,8 @@ const getRegistro = async () => {
         };
 
 
-        
-
+    const [newSentimento, setNewSentimento ] = useState('');
+    
         
     return(
         <SafeAreaView style={styles.container}>
@@ -76,7 +76,7 @@ const getRegistro = async () => {
             <View style={styles.header}>
                 
                 <Text style={styles.name}>
-                  Registro {registro.id} - {registro.sentimento}
+                  Registro {registro.id} 
                 </Text>
                 
                 <Text style={styles.subtitle}>
@@ -96,6 +96,19 @@ const getRegistro = async () => {
                     }
                 </View>
 
+                <View style={styles.inputCard}>
+                    <View style={styles.inputTitle}>
+                        <Text style={styles.label}>Humor</Text>
+                    </View>
+                    <TextInput 
+                        style={styles.input}
+                        multiline={true}
+                        maxLength={300}
+                        placeholder={registro.sentimento}
+                        value={registro.sentimento}
+                       
+                    ></TextInput>
+                </View>    
 
                 <View style={styles.inputCard}>
                     <View style={styles.inputTitle}>
@@ -106,6 +119,7 @@ const getRegistro = async () => {
                         multiline={true}
                         maxLength={300}
                         placeholder={registro.emocoes}
+                        value={registro.emocoes}
                     ></TextInput>
                 </View>
                 
@@ -124,6 +138,7 @@ const getRegistro = async () => {
                         multiline={true}
                         maxLength={300}
                         placeholder={registro.data}
+                        value={registro.data}
                         ></TextInput>
 
                       
@@ -142,6 +157,7 @@ const getRegistro = async () => {
                         multiline={true}
                         maxLength={300}
                         placeholder={registro.situacao}
+                        value={registro.situacao}
                     ></TextInput>
                 </View>
 
@@ -155,6 +171,7 @@ const getRegistro = async () => {
                         multiline={true}
                         maxLength={300}
                         placeholder={registro.pensamentos}
+                        value={registro.pensamentos}
                     ></TextInput>
                 </View>
 
@@ -168,6 +185,7 @@ const getRegistro = async () => {
                         multiline={true}
                         maxLength={300}
                         placeholder={registro.reacao}
+                        value={registro.reacao}
                     ></TextInput>
                 </View>
 
