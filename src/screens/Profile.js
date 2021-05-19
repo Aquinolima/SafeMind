@@ -68,6 +68,32 @@ export function Profile(){
         }
         getUser();
     }, []);
+
+
+    async function sendForm(){
+        await fetch(`http://192.168.0.12:3000/editarUser`, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: user,
+                name: nome,
+                tel: tel,
+                email: email,
+                password: pass               
+              })
+              
+        });
+            Alert.alert('Dados alterados com sucesso!');
+         
+
+       
+
+
+        
+        }
     
 
     return(
@@ -76,7 +102,7 @@ export function Profile(){
             <View style={styles.header}>
                 
                 <Text style={styles.title}>
-                   Configurações 
+                   Configurações
                 </Text>
                 <Text style={styles.subtitle}>
                    Selecione o campo para adicionar ou editar.
@@ -168,7 +194,10 @@ export function Profile(){
                             
                             /> */}
                         <View style={styles.footer}>
-                                <Button  title="Salvar" onPress={handleSignIn} />
+                                <Button  title="Salvar" onPress={
+                        ()=>sendForm()} 
+                                
+                    />
                                 <ButtonRed  title="Sair" onPress={handleSignIn} />
                         </View>
                         </View>

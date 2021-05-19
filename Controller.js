@@ -272,6 +272,38 @@ app.get('/mostrar/:id', async (req, res) => {
 // ALTERAR OS REGISTROS DO USUÁRIO E OS DADOS DO USUÁRIO
 
 app.put('/editarUser', async (req, res) => {
+   console.log(req.body);
+   await user.update({ 
+       name: req.body.name, 
+       tel: req.body.tel, 
+       email: req.body.email, 
+       pass: req.body.pass }, {
+    where: {
+        id: req.body.id
+    }
+  });
+       });
+
+app.put('/editarRegistro', async (req, res) => {
+console.log(req.body);
+await registro.update({ 
+    
+    sentimento: req.body.sentimento,
+    emocoes: req.body.emocoes,
+    situacao: req.body.situacao,
+    pensamentos: req.body.pensamentos,
+    reacao: req.body.reacao,
+    data: req.body.data   
+}, {
+    where: {
+        id: req.body.id
+    }
+});
+    });
+   
+
+
+/* app.post('/editarUser', async (req, res) => {
     await user.update(req.body, {
         where: {
             id: req.body.id
@@ -287,7 +319,7 @@ app.put('/editarUser', async (req, res) => {
             message: "ERRO: Não foi possivel alterar os dados!"
         });
     })
-});
+}); */
 
 app.put('/editarRegistro', async (req, res) => {
     await registro.update(req.body, {

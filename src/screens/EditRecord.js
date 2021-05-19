@@ -68,8 +68,41 @@ const getRegistro = async () => {
 
 
     const [newSentimento, setNewSentimento ] = useState('');
+    const [newEmocoes, setNewEmocoes ] = useState('');
+    const [newData, setNewData ] = useState('');
+    const [newSituacao, setNewSituacao ] = useState('');
+    const [newPensamentos, setNewPensamentos ] = useState('');
+    const [newReacao, setNewReacao ] = useState('');
     
         
+
+    async function sendForm(){
+        Alert.alert('Dados Editados com sucesso!');
+        navigation.navigate('Confirmation');
+        await fetch(`http://192.168.0.12:3000/editarRegistro`, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: registro.id ,
+                sentimento: newSentimento,
+                emocoes: newEmocoes,
+                situacao: newSituacao,
+                pensamentos: newPensamentos,
+                reacao: newReacao,
+                data: newData              
+              })
+              
+        });
+        
+        }
+
+
+
+
+
     return(
         <SafeAreaView style={styles.container}>
             <Header/>
@@ -105,7 +138,7 @@ const getRegistro = async () => {
                         multiline={true}
                         maxLength={300}
                         placeholder={registro.sentimento}
-                        value={registro.sentimento}
+                        onChangeText={text => setNewSentimento(text)}
                        
                     ></TextInput>
                 </View>    
@@ -119,7 +152,8 @@ const getRegistro = async () => {
                         multiline={true}
                         maxLength={300}
                         placeholder={registro.emocoes}
-                        value={registro.emocoes}
+                        onChangeText={text => setNewEmocoes(text)}
+
                     ></TextInput>
                 </View>
                 
@@ -138,7 +172,7 @@ const getRegistro = async () => {
                         multiline={true}
                         maxLength={300}
                         placeholder={registro.data}
-                        value={registro.data}
+                        onChangeText={text => setNewData(text)}
                         ></TextInput>
 
                       
@@ -157,7 +191,7 @@ const getRegistro = async () => {
                         multiline={true}
                         maxLength={300}
                         placeholder={registro.situacao}
-                        value={registro.situacao}
+                        onChangeText={text => setNewSituacao(text)}
                     ></TextInput>
                 </View>
 
@@ -171,7 +205,7 @@ const getRegistro = async () => {
                         multiline={true}
                         maxLength={300}
                         placeholder={registro.pensamentos}
-                        value={registro.pensamentos}
+                        onChangeText={text => setNewPensamentos(text)}
                     ></TextInput>
                 </View>
 
@@ -185,12 +219,13 @@ const getRegistro = async () => {
                         multiline={true}
                         maxLength={300}
                         placeholder={registro.reacao}
-                        value={registro.reacao}
+                        onChangeText={text => setNewReacao(text)}
                     ></TextInput>
                 </View>
 
                 <View style={styles.footer} >
-                    <Button title="Salvar" onPress={handleSignIn} />
+                    <Button title="Salvar" onPress={
+                        ()=>sendForm()} />
                     <ButtonRed title="Apagar" />
                 </View>
 
