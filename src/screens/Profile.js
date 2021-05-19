@@ -10,6 +10,7 @@ import { ScrollView,
         KeyboardAvoidingView, 
         TouchableWithoutFeedback, 
         Keyboard, 
+        Alert
     } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -71,6 +72,8 @@ export function Profile(){
 
 
     async function sendForm(){
+        Alert.alert('Dados Editados com sucesso!');
+        navigation.navigate('Welcome');
         await fetch(`http://192.168.0.12:3000/editarUser`, {
             method: 'PUT',
             headers: {
@@ -84,16 +87,15 @@ export function Profile(){
                 email: email,
                 password: pass               
               })
-              
         });
-            Alert.alert('Dados alterados com sucesso!');
-         
+    }
 
-       
-
-
+    async function logOut(){
+        Alert.alert('Obrigado, volte sempre!');
+        navigation.navigate('Welcome');
+        await AsyncStorage.clear();
+    }
         
-        }
     
 
     return(
@@ -198,7 +200,8 @@ export function Profile(){
                         ()=>sendForm()} 
                                 
                     />
-                                <ButtonRed  title="Sair" onPress={handleSignIn} />
+                                <ButtonRed  title="Sair" onPress={
+                        ()=>logOut()}/>
                         </View>
                         </View>
                     </View>

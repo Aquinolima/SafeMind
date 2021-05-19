@@ -9,6 +9,7 @@ import {
     StyleSheet,
     Image,
     ScrollView,
+    Alert,
 
     TouchableOpacity,
     Platform
@@ -57,6 +58,8 @@ export function NewRecord() {
     //Função de Envio do Form
 
     async function sendForm(){
+        Alert.alert('Registro Criado com sucesso!');
+        navigation.navigate('Confirmation');
         let response = await fetch('http://192.168.0.12:3000/createRegistro', {
             method: 'POST',
             headers: {

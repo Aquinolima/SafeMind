@@ -189,8 +189,7 @@ app.post('/createUser', async (req, res) => {
 });
 
 app.post('/createRegistro', async (req, res) => {
-    let userId='';
-    await registro.create({
+        await registro.create({
         userId: req.body.userId,
         sentimento: req.body.sentimento,
         emocoes: req.body.emocoes,
@@ -198,12 +197,7 @@ app.post('/createRegistro', async (req, res) => {
         pensamentos: req.body.pensamentos,
         reacao: req.body.reacao,
         data: req.body.data
-    }).then(()=>{
-        userId=response.id;
-        
-    });
-
-    
+    })    
 });
 
 /* app.post('/createRegistro', async (req, res) => {
@@ -342,7 +336,7 @@ app.put('/editarRegistro', async (req, res) => {
 
 // DELETAR OS REGISTROS DO USUÁRIO E OS DADOS DO USUÁRIO
 
-app.delete('/deleteUser/:id', async (req, res) => {
+app.delete('/deleteUser', async (req, res) => {
     await user.destroy({
         where: {
             id: req.params.id

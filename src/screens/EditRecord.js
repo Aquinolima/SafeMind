@@ -99,6 +99,25 @@ const getRegistro = async () => {
         
         }
 
+        async function sendDel(){
+            Alert.alert('Dados Apagados com sucesso!');
+            navigation.navigate('Confirmation');
+            await fetch(`http://192.168.0.12:3000/deleteRegistro/` + registro.id, {
+                method: 'DELETE',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: registro.id ,
+                               
+                  })
+                  
+            });
+            
+            }
+    
+
 
 
 
@@ -226,7 +245,8 @@ const getRegistro = async () => {
                 <View style={styles.footer} >
                     <Button title="Salvar" onPress={
                         ()=>sendForm()} />
-                    <ButtonRed title="Apagar" />
+                    <ButtonRed title="Apagar" onPress={
+                        ()=>sendDel()} />
                 </View>
 
 

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaView, View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts'; 
@@ -15,9 +16,9 @@ export function Welcome () {
 
 useEffect(() => {
     const checkToken = async () => {
-        const token = await AsyncStorage.getItem('token');
+        const token = await AsyncStorage.getItem('userData');
         if(token){
-             // validar o token
+            navigation.navigate('ListRecords');
         } else {
             navigation.navigate('Welcome');
         }
